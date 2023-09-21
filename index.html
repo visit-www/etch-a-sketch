@@ -7,15 +7,19 @@
 		<title>Etch a Sketch</title>
 	</head>
 	<body>
-		<div class="main-container">
-			<div class="pixel">1</div>
-			<div class="pixel">1</div>
-			<div class="pixel">1</div>
-			<div class="pixel">1</div>
-			<div class="pixel">1</div>
-			<div class="pixel">1</div>
+		<div class="info">
+			<label for="number-input"
+				>Enter the desired grid size Default is 16 X 16 . You can enter any
+				value between 16 and 100.</label
+			>
+			<input type="number" id="number-input" min="1" />
+			<button type="submit" id="submit-button">Submit</button>
+			<p id="result">
+				The entered gird is 24X24 which will produce a grid 2400 pixels
+			</p>
 		</div>
+		<div class="grid-container"></div>
 
-		<!-- <script src="./script.js"></script> -->
+		<script src="./script.js"></script>
 	</body>
 </html>
