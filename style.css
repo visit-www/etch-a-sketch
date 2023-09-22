@@ -23,9 +23,10 @@ body {
 .grid-container {
 	display: flex;
 	flex-wrap: wrap;
-	flex: 1 1;
+	flex: 1 1 content;
 	justify-content: space-evenly;
-	overflow: hidden;
+	/* overflow: hidden; */
+	background-color: blueviolet;
 }
 
 .info {
@@ -35,6 +36,6 @@ body {
 
 .box {
 	display: block;
-	border: 2px green solid;
+	border: 2px rgb(255, 255, 255) solid;
 	/* flex: 1 1 25px; */
 }
