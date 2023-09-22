@@ -33,6 +33,7 @@ function fillGrid() {
 	}
 	gridSize = n * n;
 	var i = 1;
+	console.log(`gridsize asked for is ${gridSize}`);
 
 	while (i <= gridSize) {
 		const boxElement = document.createElement('div');
@@ -63,17 +64,7 @@ function clearGrid() {
 	}
 }
 submit.addEventListener('click', () => {
-	var n = input.value;
-	gridSize = n * n;
-	var i = 1;
-	while (i <= gridSize) {
-		const boxElement = document.createElement('div');
-		var boxSize = gridWidth / n;
-		boxElement.classList.add('box');
-		boxElement.style.width = boxSize + 'px';
-		boxElement.style.height = boxSize + 'px';
-
-		gridContainer.appendChild(boxElement);
-		i++;
-	}
+	console.log('button clicked');
+	clearGrid();
+	fillGrid();
 });
