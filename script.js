@@ -10,20 +10,13 @@ const submit = document.getElementById('submit-button');
 function drawGridOutline() {
 	var containerWidth = body.clientWidth;
 	var containerHeight = body.clientHeight;
-	sketchPaperHeight = containerHeight - 30;
-	sketchPaperWidth = containerWidth - 30;
-	// if (containerHeight > containerWidth) {
-	// 	sketchPaperHeight = containerWidth;
-	// 	sketchPaperWidth = containerWidth;
-	// } else {
-	// 	sketchPaperHeight = containerHeight;
-	// 	sketchPaperWidth = containerHeight;
-	// }
-	// set the size of gird as sketchpaper size
-	gridContainer.style.width = sketchPaperWidth + 'px';
-	console.log(`width = ${sketchPaperWidth + 'px'}`);
-	console.log(`height = ${sketchPaperHeight + 'px'}`);
-	gridContainer.style.height = sketchPaperHeight + 'px';
+	gridHeight = containerHeight - (30 * containerHeight) / 100;
+	gridWidth = containerWidth - (20 * containerWidth) / 100;
+
+	gridContainer.style.width = gridWidth + 'px';
+	console.log(`width = ${gridWidth + 'px'}`);
+	console.log(`height = ${gridHeight + 'px'}`);
+	gridContainer.style.height = gridHeight + 'px';
 }
 drawGridOutline();
 
@@ -35,7 +28,6 @@ function fillGrid() {
 		console.log(` input ${input.value}`);
 		var n = input.value;
 	} else {
-		console.log(` var n is ${n}`);
 		n = 16;
 		console.log(` else loop-: var n is ${n}`);
 	}
@@ -45,27 +37,38 @@ function fillGrid() {
 	while (i <= gridSize) {
 		const boxElement = document.createElement('div');
 		boxElement.classList.add('box');
-		var gridArea = sketchPaperHeight * sketchPaperWidth;
-		var boxElementArea = gridArea / boxElementArea;
-		var boxSize = math.sqrt(boxElementArea);
-		// var boxSize = sketchPaperWidth / n;
+		var gridArea = gridHeight * gridWidth;
+		var boxElementArea = gridArea / gridSize;
+		var boxSize = Math.sqrt(boxElementArea);
+		// var boxSize = gridWidth / n;
 		console.log(`box size is ${boxSize}`);
 		boxElement.style.flex = boxSize + 'px';
 		// boxElement.style.width = boxSize + 'px';
-		boxElement.style.height = boxSize + 'px';
+		boxElement.style.height = '1 1 ' + boxSize + 'px';
 		gridContainer.appendChild(boxElement);
 		i++;
 	}
 }
 fillGrid();
 
+function clearGrid() {
+	const box = document.querySelectorAll('.box');
+	console.log(box);
+	if (box) {
+		box.forEach((box) => {
+			gridContainer.remove(box);
+		});
+	} else {
+		console.log('Nothing to clear');
+	}
+}
 submit.addEventListener('click', () => {
 	var n = input.value;
 	gridSize = n * n;
 	var i = 1;
 	while (i <= gridSize) {
 		const boxElement = document.createElement('div');
-		var boxSize = sketchPaperWidth / n;
+		var boxSize = gridWidth / n;
 		boxElement.classList.add('box');
 		boxElement.style.width = boxSize + 'px';
 		boxElement.style.height = boxSize + 'px';
