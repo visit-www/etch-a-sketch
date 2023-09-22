@@ -46,6 +46,8 @@ function fillGrid() {
 		boxElement.style.flex = boxSize + 'px';
 		// boxElement.style.width = boxSize + 'px';
 		boxElement.style.height = '1 1 ' + boxSize + 'px';
+		// add function to make this grid appear as sketchpaper
+		sketch(boxElement);
 		gridContainer.appendChild(boxElement);
 		i++;
 	}
@@ -57,14 +59,27 @@ function clearGrid() {
 	console.log(box);
 	if (box) {
 		box.forEach((box) => {
-			gridContainer.remove(box);
+			box.remove(); //this will only remove the child element.
+			// keep in mind if you use gridContainer.box.remove(box) then this
+			// will remove entire girdContainer along with the child elements !
+
+			console.log('all cleared');
 		});
 	} else {
 		console.log('Nothing to clear');
 	}
 }
+function sketch(pixel) {
+	pixel.addEventListener('mouseenter', () => {
+		pixel.style.cursor = 'pointer';
+		pixel.style.backgroundColor = 'black';
+	});
+}
+
 submit.addEventListener('click', () => {
 	console.log('button clicked');
 	clearGrid();
-	fillGrid();
+	setTimeout(() => {
+		fillGrid();
+	}, 100);
 });
