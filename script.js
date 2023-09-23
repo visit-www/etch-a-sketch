@@ -1,91 +1,83 @@
+//** define the constants. **
 const body = document.querySelector('body');
 const gridContainer = document.querySelector('.grid-container');
-
-console.log(`${body.clientWidth} X ${body.clientHeight}`);
 const input = document.getElementById('number-input');
 const submit = document.getElementById('submit-button');
-let paintBrush = 'off';
+//** FUNCTIONS **
 
-// set the size of grid and make it a sqaure
-
+// Define function to set the size of grid and make it a sqaure
 function drawGridOutline() {
 	var containerWidth = body.clientWidth;
 	var containerHeight = body.clientHeight;
 	gridHeight = containerHeight - (30 * containerHeight) / 100;
 	gridWidth = containerWidth - (20 * containerWidth) / 100;
-
 	gridContainer.style.width = gridWidth + 'px';
-	console.log(`width = ${gridWidth + 'px'}`);
-	console.log(`height = ${gridHeight + 'px'}`);
 	gridContainer.style.height = gridHeight + 'px';
 }
-drawGridOutline();
 
+// define function to fill the girdContainer with desire number of boxes.
+// Default is 16X16=256 boxes.
 function fillGrid() {
-	console.log('wre will fill the grid');
-	var n;
-	console.log(` var n is ${n}`);
+	var n; //var n will hold the value of number of boxes requested. By default it will be 16, but if user provides and input then it will be = input.value.
 	if (input.value) {
-		console.log(` input ${input.value}`);
 		var n = input.value;
 	} else {
 		n = 16;
-		console.log(` else loop-: var n is ${n}`);
 	}
 	gridSize = n * n;
-	var i = 1;
-	console.log(`gridsize asked for is ${gridSize}`);
+	var i = 1; // setting the counter to 1; it will increase till i= gridSize. Use while loop.
 
 	while (i <= gridSize) {
-		const boxElement = document.createElement('div');
+		const boxElement = document.createElement('div'); // create a box.
 		boxElement.classList.add('box');
-		var gridArea = gridHeight * gridWidth;
-		var boxElementArea = gridArea / gridSize;
-		var boxSize = Math.sqrt(boxElementArea);
-		// var boxSize = gridWidth / n;
-		console.log(`box size is ${boxSize}`);
-		boxElement.style.flex = boxSize + 'px';
-		// boxElement.style.width = boxSize + 'px';
-		boxElement.style.height = '1 1 ' + boxSize + 'px';
-		// add function to make this grid appear as sketchpaper
+		// calculate the dimension of each box.
+		var gridArea = gridHeight * gridWidth; //calculate the available area / space in gridContainer.
+		var boxElementArea = gridArea / gridSize; //the area of each box = area of girdContainer divided by the number of boxes requested.
+		var boxSize = Math.sqrt(boxElementArea); // each dimension of the square box = sqrt of the box area.
 
-		gridContainer.appendChild(boxElement);
+		boxElement.style.flex = '1 1 ' + boxSize + 'px'; // set the inline style for flex property setting flex.grow to 1 , flex-shrink to and flex basis = boxSize in px.
+		boxElement.style.height = boxSize + 'px'; // set box height = boxSize (ensuring each box is a square)
+		gridContainer.appendChild(boxElement); // append the boxElement created to the gird container.
 		i++;
 	}
-	sketch();
+	sketch(); // function to allow sketching / painting using the cursor
 }
-fillGrid();
 
+//define function to clear old grid each time the user request new grid.
 function clearGrid() {
-	const box = document.querySelectorAll('.box');
-	console.log(box);
-	if (box) {
-		box.forEach((box) => {
+	const boxes = document.querySelectorAll('.box'); // retrieve the node list for boxes. this will only work only after the createGrid function is executed ad boxes are added by this function.
+	if (boxes) {
+		boxes.forEach((box) => {
 			box.remove(); //this will only remove the child element.
 			// keep in mind if you use gridContainer.box.remove(box) then this
 			// will remove entire girdContainer along with the child elements !
-
-			console.log('all cleared');
 		});
 	} else {
-		console.log('Nothing to clear');
+		console.log('Nothing to clear!');
 	}
 }
-function sketch(pixel) {
+//define function to enable painting of the boxes.
+function sketch() {
+	// retrieve node list fo all boxes. This wil work only inside createGrid
+	// function as box class is added in that function only. Therefore the
+	// sketch() function will be called upon just before the end of the
+	// createGrid() function.
 	const boxes = document.querySelectorAll('.box');
+	// create a isPainting anchor button which till be toggled on and off by
+	// mouseup or mousedown respectively.
 	let isPainting = false;
-
+	// add mousedown event listener to the **document** itself.
 	document.addEventListener('mousedown', (e) => {
 		if (e.button === 0) {
 			// Left mouse button is clicked (button === 0)
 			isPainting = true;
 		}
 	});
-
+	// toggle of isPainting when mouse is up.
 	document.addEventListener('mouseup', () => {
 		isPainting = false;
 	});
-
+	// now add mousemove event listener to each box.
 	boxes.forEach((box) => {
 		box.addEventListener('mousemove', (e) => {
 			if (isPainting) {
@@ -95,11 +87,15 @@ function sketch(pixel) {
 		});
 	});
 }
+// ** Call functions. **
+drawGridOutline(); // call function to draw the grid outline as soon as page loads.
+fillGrid(); //  // call function to fill the  grid outline as soon as page loads. It fill will default 256 boxes.
 
+// add event listener submit button. This will first clear the grid and then
+// after 100ms gap will fill the grid with requested number of boxes.
 submit.addEventListener('click', () => {
-	console.log('button clicked');
-	clearGrid();
+	clearGrid(); // clearGrid function is called upon as soon as the user submit nea input.
 	setTimeout(() => {
-		fillGrid();
+		fillGrid(); // execute the fillGrid function after some delay for aesthetic purposes.
 	}, 100);
 });
