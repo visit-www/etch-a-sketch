@@ -4,6 +4,7 @@ const gridContainer = document.querySelector('.grid-container');
 console.log(`${body.clientWidth} X ${body.clientHeight}`);
 const input = document.getElementById('number-input');
 const submit = document.getElementById('submit-button');
+let paintBrush = 'off';
 
 // set the size of grid and make it a sqaure
 
@@ -47,10 +48,11 @@ function fillGrid() {
 		// boxElement.style.width = boxSize + 'px';
 		boxElement.style.height = '1 1 ' + boxSize + 'px';
 		// add function to make this grid appear as sketchpaper
-		sketch(boxElement);
+
 		gridContainer.appendChild(boxElement);
 		i++;
 	}
+	sketch();
 }
 fillGrid();
 
@@ -70,9 +72,27 @@ function clearGrid() {
 	}
 }
 function sketch(pixel) {
-	pixel.addEventListener('mouseenter', () => {
-		pixel.style.cursor = 'pointer';
-		pixel.style.backgroundColor = 'black';
+	const boxes = document.querySelectorAll('.box');
+	let isPainting = false;
+
+	document.addEventListener('mousedown', (e) => {
+		if (e.button === 0) {
+			// Left mouse button is clicked (button === 0)
+			isPainting = true;
+		}
+	});
+
+	document.addEventListener('mouseup', () => {
+		isPainting = false;
+	});
+
+	boxes.forEach((box) => {
+		box.addEventListener('mousemove', (e) => {
+			if (isPainting) {
+				box.style.cursor = 'pointer';
+				box.style.backgroundColor = 'black';
+			}
+		});
 	});
 }
 
