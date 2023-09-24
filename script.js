@@ -3,18 +3,17 @@ const body = document.querySelector('body');
 const gridContainer = document.querySelector('.grid-container');
 const input = document.getElementById('number-input');
 const submit = document.getElementById('submit-button');
-let boxes = null;
-//** FUNCTIONS **
+const pen = document.getElementById('draw-button');
+const eraser = document.getElementById('erase-button');
+const gridWidth = gridContainer.clientWidth;
+const gridHeight = gridContainer.clientHeight;
 
-// Define function to set the size of grid and make it a sqaure
-function drawGridOutline() {
-	var containerWidth = body.clientWidth;
-	var containerHeight = body.clientHeight;
-	gridHeight = containerHeight - (30 * containerHeight) / 100;
-	gridWidth = containerWidth - (20 * containerWidth) / 100;
-	gridContainer.style.width = gridWidth + 'px';
-	gridContainer.style.height = gridHeight + 'px';
-}
+let boxes = null; //declare boxes a node list in global scope so that it can be accessed by all function in the script. its initial value is null (as no boxes to start with). Once fillGrid functions runs (Initially on page load and later on pressing submit button), this function not only creates boxes but also updates the value of boxes in global scope so that it can be access by other functions.
+//constants used for toggle functionality.
+let isPainting = false;
+let isErasing = false;
+
+//** FUNCTIONS **
 
 // define function to fill the girdContainer with desire number of boxes.
 // Default is 16X16=256 boxes.
@@ -25,6 +24,7 @@ function fillGrid() {
 	} else {
 		n = 16;
 	}
+	console.log(n);
 	gridSize = n * n;
 	var i = 1; // setting the counter to 1; it will increase till i= gridSize. Use while loop.
 
@@ -41,67 +41,141 @@ function fillGrid() {
 		gridContainer.appendChild(boxElement); // append the boxElement created to the gird container.
 		i++;
 	}
-	sketch(); // function to allow sketching / painting using the cursor
+	const newBoxes = document.querySelectorAll('.box');
+	boxes = newBoxes;
+	// sketch(); // function to allow sketching / painting using the cursor
+	console.log(boxes);
 }
 
 //define function to clear old grid each time the user request new grid.
 function clearGrid() {
-	const boxes = document.querySelectorAll('.box'); // retrieve the node list for boxes. this will only work only after the createGrid function is executed ad boxes are added by this function.
 	if (boxes) {
 		boxes.forEach((box) => {
-			box.remove(); //this will only remove the child element.
-			// keep in mind if you use gridContainer.box.remove(box) then this
-			// will remove entire girdContainer along with the child elements !
+			box.remove();
 		});
 	} else {
 		console.log('Nothing to clear!');
 	}
 }
+function penDownHandler(e) {
+	console.log('pen down');
+	if (e.button === 0) {
+		console.log('left click');
+		// Left mouse button is clicked (button === 0)
+		isPainting = true;
+	}
+}
+function penUpHandler() {
+	console.log('pen up');
+	pen.textContent = 'Click and drag to draw';
+	isPainting = false;
+}
+function penMoveHandler(e) {
+	console.log(`logig the status of pen inside movehandler ${isPainting}`);
+	if (isPainting) {
+		pen.textContent = 'Drawing!';
+		e.target.style.cursor = 'pointer';
+		e.target.style.backgroundColor = 'black';
+		console.log('pen moving');
+	}
+}
+
+pen.addEventListener('click', (e) => {
+	if (pen.textContent === 'Pen') {
+		removeEraserEventListeners();
+		pen.textContent = 'Click and drag to draw';
+		eraser.textContent = 'Pen';
+		gridContainer.addEventListener('mousedown', penDownHandler);
+		gridContainer.addEventListener('mouseup', penUpHandler);
+		boxes.forEach((box) => {
+			box.addEventListener('mousemove', penMoveHandler);
+		});
+	}
+});
+
+function removePenEventListeners() {
+	if (pen.textContent === 'Click and drag to draw') {
+		gridContainer.removeEventListener('mousedown', penDownHandler);
+		gridContainer.removeEventListener('mouseup', penUpHandler);
+		console.log(
+			`logging boxes from inside the remove event listner function${boxes}`
+		);
+		boxes.forEach((box) => {
+			console.log(box);
+			box.removeEventListener('mousemove', penMoveHandler);
+		});
+	}
+}
+
+function eraserDownHandler(e) {
+	console.log('eraser down');
+	if (e.button === 0) {
+		console.log('left click');
+		// Left mouse button is clicked (button === 0)
+		isErasing = true;
+	}
+}
+function eraserUpHandler() {
+	console.log('Eraser up');
+	eraser.textContent = 'Click and drag to erase';
+	isErasing = false;
+}
+function eraserMoveHandler(e) {
+	console.log(`logging the status of eraser inside move handler ${isPainting}`);
+
+	if (isErasing) {
+		eraser.textContent = 'Erasing!';
+		e.target.style.cursor = 'pointer';
+		e.target.style.backgroundColor = '';
+		console.log('Eraser is moving');
+	}
+}
+eraser.addEventListener('click', (e) => {
+	if (eraser.textContent === 'Eraser') {
+		removePenEventListeners();
+
+		eraser.textContent = 'Click and drag to erase';
+		pen.textContent = 'Pen';
+		gridContainer.addEventListener('mousedown', eraserDownHandler);
+		gridContainer.addEventListener('mouseup', eraserUpHandler);
+		boxes.forEach((box) => {
+			box.addEventListener('mousemove', eraserMoveHandler);
+		});
+	}
+
+	function removeEraserEventListeners() {
+		if (eraser.textContent === 'Click and drag to erase') {
+			gridContainer.removeEventListener('mousedown', eraserDownHandler);
+			gridContainer.removeEventListener('mouseup', eraserUpHandler);
+			console.log(
+				`logging boxes from inside the remove event listner function${boxes}`
+			);
+			boxes.forEach((box) => {
+				box.removeEventListener('mousemove', eraserMoveHandler);
+			});
+		}
+	}
+});
 //define function to enable painting of the boxes.
 function sketch() {
-	// retrieve node list fo all boxes. This wil work only inside createGrid
-	// function as box class is added in that function only. Therefore the
-	// sketch() function will be called upon just before the end of the
-	// createGrid() function.
-	const newBoxes = document.querySelectorAll('.box');
-	boxes = newBoxes;
-	// create a isPainting anchor button which till be toggled on and off by
-	// mouseup or mousedown respectively.
-	let isPainting = false;
 	// add mousedown event listener to the **document** itself.
-	document.addEventListener('mousedown', (e) => {
-		if (e.button === 0) {
-			// Left mouse button is clicked (button === 0)
-			isPainting = true;
-		}
-	});
+	gridContainer.addEventListener('mousedown', penDownHandler);
 	// toggle of isPainting when mouse is up.
-	document.addEventListener('mouseup', () => {
-		isPainting = false;
-	});
+	gridContainer.addEventListener('mouseup', penDownHandler);
 	// now add mousemove event listener to each box.
 	boxes.forEach((box) => {
-		box.addEventListener('mousemove', (e) => {
-			if (isPainting) {
-				box.style.cursor = 'pointer';
-				box.style.backgroundColor = 'black';
-			}
-		});
+		box.addEventListener('mousemove', penMoveHandler(box));
 	});
 }
 // ** Call functions. **
-drawGridOutline(); // call function to draw the grid outline as soon as page loads.
+
 fillGrid(); //  // call function to fill the  grid outline as soon as page loads. It fill will default 256 boxes.
 
 // add event listener submit button. This will first clear the grid and then
 // after 100ms gap will fill the grid with requested number of boxes.
 submit.addEventListener('click', () => {
-	clearGrid(); // clearGrid function is called upon as soon as the user submit nea input.
+	clearGrid(); // clearGrid function is called upon as soon as the user submit new input.
 	setTimeout(() => {
 		fillGrid(); // execute the fillGrid function after some delay for aesthetic purposes.
 	}, 100);
-	const newBoxes = document.querySelectorAll('.box');
-	boxes = newBoxes;
 });
-
-console.log(boxes);
