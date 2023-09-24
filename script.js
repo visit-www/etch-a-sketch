@@ -3,6 +3,7 @@ const body = document.querySelector('body');
 const gridContainer = document.querySelector('.grid-container');
 const input = document.getElementById('number-input');
 const submit = document.getElementById('submit-button');
+let boxes = null;
 //** FUNCTIONS **
 
 // Define function to set the size of grid and make it a sqaure
@@ -62,7 +63,8 @@ function sketch() {
 	// function as box class is added in that function only. Therefore the
 	// sketch() function will be called upon just before the end of the
 	// createGrid() function.
-	const boxes = document.querySelectorAll('.box');
+	const newBoxes = document.querySelectorAll('.box');
+	boxes = newBoxes;
 	// create a isPainting anchor button which till be toggled on and off by
 	// mouseup or mousedown respectively.
 	let isPainting = false;
@@ -98,4 +100,8 @@ submit.addEventListener('click', () => {
 	setTimeout(() => {
 		fillGrid(); // execute the fillGrid function after some delay for aesthetic purposes.
 	}, 100);
+	const newBoxes = document.querySelectorAll('.box');
+	boxes = newBoxes;
 });
+
+console.log(boxes);
