@@ -1,6 +1,6 @@
 //Declare constants
 // -------------------------------------
-
+//DOM related elements retrieved and stored in constants.
 const body = document.querySelector('body');
 const gridContainer = document.querySelector('.grid-container');
 const input = document.getElementById('number-input');
@@ -10,18 +10,18 @@ const eraser = document.getElementById('erase-button');
 const gridWidth = gridContainer.clientWidth;
 const gridHeight = gridContainer.clientHeight;
 const result = document.getElementById('result-container');
-let n;
-let gridSize;
 
-let boxes = null; //declare boxes - a node list in global scope so that it can be accessed by all functions in the script. its initial value is null (as no boxes to start with). Once fillGrid functions runs (Initially on page load and later on pressing submit button), this function not only creates boxes but also updates the value of boxes in global scope so that it can be access by other functions.
-//constants used for toggle functionality.
-let isPainting = false;
-let isErasing = false;
+//Declare variables that would be needed by multiple functions in global scope.
+let n; //will hold the value of user inputs.
+let gridSize; // calculated size of the grid (nXn). This is calculated in fillGrid()
+let boxes = null; //will store the node list of all the boxElements.
+let isPainting = false; //The flag that toggles the pen and eraser buttons.
+let isErasing = false; //Same as above.
 
 //** Define functions.
 // -------------------------------------
 
-// define function to fill the girdContainer with desire number of boxes.
+// define function to fill the girdContainer with desired number of boxes.
 // Default is 16X16=256 boxes.
 function fillGrid() {
 	//var n will hold the value of number of boxes requested. By default it will be 16, but if user provides and input then it will be = input.value.
@@ -31,6 +31,10 @@ function fillGrid() {
 		n = 16;
 	}
 	gridSize = n * n;
+	// enable the pen and erase , as its possible that they might have been
+	// disabled during validateInput function.
+	pen.disabled = false;
+	eraser.disabled = false;
 
 	var i = 1; // setting the counter to 1; it will increase till i= gridSize. Use while loop.
 
@@ -49,26 +53,6 @@ function fillGrid() {
 	result.textContent = `Sketch board resolution is ${gridSize} pixels (${n} X ${n})`;
 	const newBoxes = document.querySelectorAll('.box');
 	boxes = newBoxes; // pass the value of newBoxes outside the function.
-}
-
-// Define function to validate inputs. Only accept inputs between 16 and 100 ,
-// otherwise display warning text in red color that the inputs must be between
-// 16 and 100 and do not run the clearGrid function.
-function validateInput() {
-	try {
-		input.value < 16 || input.value > 100;
-	} catch (error) {
-		result.textContent = `Invalid entry! Please only enter values between 16 or 100`;
-	}
-}
-//Define function to clear old grid each time the user request new grid.
-function clearGrid() {
-	if (boxes) {
-		boxes.forEach((box) => {
-			box.remove();
-		});
-	} else {
-	}
 }
 
 // Define function to handle pen. (pemDown= mousedown; penUp=mouseup ; penMove=m
@@ -90,6 +74,7 @@ function penMoveHandler(e) {
 		e.target.style.backgroundColor = 'black';
 	}
 }
+
 //Define function to remove pen related event handlers (drawing tools)
 function removePenEventListeners() {
 	if (pen.textContent === 'Click and drag to draw') {
@@ -131,30 +116,58 @@ function removeEraserEventListeners() {
 	}
 }
 
+//Define function to clear old grid each time the user request new grid.
+function clearGrid() {
+	if (boxes) {
+		boxes.forEach((box) => {
+			box.remove();
+			if (eraser.textContent === 'Click and drag to erase') {
+				removeEraserEventListeners();
+				eraser.textContent = 'Eraser';
+			}
+			if (pen.textContent === 'Click and drag to draw') {
+				removePenEventListeners();
+				pen.textContent = 'Pen';
+			}
+		});
+	} else {
+	}
+}
+
+// Define function to validate inputs. Only accept inputs between 16 and 100 ,
+function validateInput() {
+	try {
+		if (input.value < 16 || input.value > 100) {
+			throw new Error(
+				`Invalid entry! Please only enter values between 16 or 100`
+			);
+		}
+	} catch (error) {
+		result.textContent = error.message;
+		clearGrid();
+		pen.disabled = true;
+		eraser.disabled = true;
+		throw error;
+	}
+}
+
 // ** Call relevant functions on page load. **
 //---------------------------------------------------------
 
-fillGrid(); //  // call function to fill the  grid outline as soon as page loads. It fill will default 256 boxes.
+fillGrid(); //Call function to fill the  grid outline as soon as page loads. It fill will default 256 boxes.
 
-// Finally add event listeners to different buttons to add  ability for user
-// interaction.
+// Finally add event listeners to different buttons to add user interaction.
 //---------------------------------------------------------
 
 // SUbmit button.
 submit.addEventListener('click', () => {
-	validateInput();
-	clearGrid(); // clearGrid function is called upon as soon as the user submit new input.
-	if (eraser.textContent === 'Click and drag to erase') {
-		removeEraserEventListeners();
-		eraser.textContent = 'Eraser';
+	//validity check done only if the input box actually had some value.
+	if (input.value !== '') {
+		validateInput();
 	}
-	if (pen.textContent === 'Click and drag to draw') {
-		removePenEventListeners();
-		pen.textContent = 'Pen';
-	}
-	setTimeout(() => {
-		fillGrid(); // execute the fillGrid function after some delay for aesthetic purposes.
-	}, 100);
+	//clearGrid() anf fillGrid() function run every time valid entry is submitted,
+	clearGrid();
+	fillGrid();
 });
 
 //Pen button (Drawing tools)
