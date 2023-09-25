@@ -9,6 +9,9 @@ const pen = document.getElementById('draw-button');
 const eraser = document.getElementById('erase-button');
 const gridWidth = gridContainer.clientWidth;
 const gridHeight = gridContainer.clientHeight;
+const result = document.getElementById('result-container');
+let n;
+let gridSize;
 
 let boxes = null; //declare boxes - a node list in global scope so that it can be accessed by all functions in the script. its initial value is null (as no boxes to start with). Once fillGrid functions runs (Initially on page load and later on pressing submit button), this function not only creates boxes but also updates the value of boxes in global scope so that it can be access by other functions.
 //constants used for toggle functionality.
@@ -21,13 +24,14 @@ let isErasing = false;
 // define function to fill the girdContainer with desire number of boxes.
 // Default is 16X16=256 boxes.
 function fillGrid() {
-	var n; //var n will hold the value of number of boxes requested. By default it will be 16, but if user provides and input then it will be = input.value.
+	//var n will hold the value of number of boxes requested. By default it will be 16, but if user provides and input then it will be = input.value.
 	if (input.value) {
-		var n = input.value;
+		n = input.value;
 	} else {
 		n = 16;
 	}
 	gridSize = n * n;
+
 	var i = 1; // setting the counter to 1; it will increase till i= gridSize. Use while loop.
 
 	while (i <= gridSize) {
@@ -42,10 +46,21 @@ function fillGrid() {
 		gridContainer.appendChild(boxElement); // append the boxElement created to the gird container.
 		i++;
 	}
+	result.textContent = `Sketch board resolution is ${gridSize} pixels (${n} X ${n})`;
 	const newBoxes = document.querySelectorAll('.box');
 	boxes = newBoxes; // pass the value of newBoxes outside the function.
 }
 
+// Define function to validate inputs. Only accept inputs between 16 and 100 ,
+// otherwise display warning text in red color that the inputs must be between
+// 16 and 100 and do not run the clearGrid function.
+function validateInput() {
+	try {
+		input.value < 16 || input.value > 100;
+	} catch (error) {
+		result.textContent = `Invalid entry! Please only enter values between 16 or 100`;
+	}
+}
 //Define function to clear old grid each time the user request new grid.
 function clearGrid() {
 	if (boxes) {
@@ -127,6 +142,7 @@ fillGrid(); //  // call function to fill the  grid outline as soon as page loads
 
 // SUbmit button.
 submit.addEventListener('click', () => {
+	validateInput();
 	clearGrid(); // clearGrid function is called upon as soon as the user submit new input.
 	if (eraser.textContent === 'Click and drag to erase') {
 		removeEraserEventListeners();
