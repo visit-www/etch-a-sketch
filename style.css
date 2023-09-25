@@ -1,56 +1,140 @@
 body {
+	margin: 0px;
+	padding: 0px;
+	max-height: 100vh;
+	max-width: 100vw;
+}
+.title-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 8vh;
+	/* Style for antique book title */
+	font-family: 'Quantico', sans-serif;
+	font-size: 36px; /* Adjust the font size as needed */
+	font-weight: bold; /* Make it bold for emphasis */
+	text-align: center; /* Center the text horizontally */
+	text-transform: uppercase; /* Uppercase the text */
+	letter-spacing: 2px; /* Add some letter spacing for vintage look */
+	margin: 20px 0; /* Add margin for spacing */
+	color: rgba(98, 89, 39, 1); /* Choose an antique or sepia color */
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+}
+
+.sketch-pad-container {
 	display: flex;
 	margin: 0px;
 	padding: 20px;
 	width: 100vw;
-	height: 100vh;
+	height: 90vh;
 	text-align: center;
 	/* center the contents */
 	justify-content: center;
-	align-items: center;
+	align-items: stretch; /* Stretch items to have the same height */
+	box-shadow: inset 40px 5px 260px rgba(0, 0, 0, 0.5);
 }
 * {
 	box-sizing: border-box;
-}
-
-.grid-container,
-.info-container {
-	border: 2px black dotted;
-	min-height: 90%;
 }
 
 .grid-container {
 	display: flex;
 	flex-wrap: wrap;
 	flex-grow: 1;
-	flex-basis: calc (75% - 20px);
-
+	flex-basis: calc (75% - 20px); /*width is hard coded */
 	justify-content: space-evenly;
-	/* overflow: hidden; */
-	background-color: rgb(241, 241, 231);
+	overflow: hidden;
+	/* background-color: rgba(211, 222, 204, 0.6); */
+
+	box-shadow: inset 20px 5px 20px rgba(0, 0, 0, 0.5);
 }
 
 .info-container {
 	display: flex;
 	flex-direction: column;
-	flex-basis: calc(25% - 20px);
-	justify-content: space-between;
+	flex-basis: calc(25% - 10px);
+	justify-content: space-evenly;
 	margin-right: 10px;
 	padding: 10px;
+	background-color: rgba(211, 222, 204, 0.9);
+	box-shadow: inset 0px 2px 5px 0px rgba(47, 76, 3, 0.5);
+	/* We set the background-color to an off-white color (#f4e9d1) to give the base color of the handmade paper.
+
+We create a textured appearance using the background-image property with two linear gradients. These gradients create a diagonal pattern of light lines and subtle imperfections.
+
+The background-size property defines the size of the texture. In this case, it's set to 40px by 40px. You can adjust this value to make the texture larger or smaller. */
+	background-color: #afb1a9; /* A warm, off-white color */
+	background-image: linear-gradient(
+			45deg,
+			transparent 10%,
+			rgba(0, 0, 0, 0.03) 10%,
+			rgba(0, 0, 0, 0.03) 20%,
+			transparent 20%,
+			transparent 30%,
+			rgba(0, 0, 0, 0.03) 30%,
+			rgba(0, 0, 0, 0.03) 40%,
+			transparent 40%,
+			transparent 50%,
+			rgba(0, 0, 0, 0.03) 50%,
+			rgba(0, 0, 0, 0.03) 60%,
+			transparent 60%,
+			transparent 70%,
+			rgba(0, 0, 0, 0.03) 70%,
+			rgba(0, 0, 0, 0.03) 80%,
+			transparent 80%,
+			transparent 90%,
+			rgba(0, 0, 0, 0.03) 90%,
+			rgba(0, 0, 0, 0.03) 100%
+		),
+		linear-gradient(
+			45deg,
+			transparent 10%,
+			rgba(0, 0, 0, 0.03) 10%,
+			rgba(0, 0, 0, 0.03) 20%,
+			transparent 20%,
+			transparent 30%,
+			rgba(0, 0, 0, 0.03) 30%,
+			rgba(0, 0, 0, 0.03) 40%,
+			transparent 40%,
+			transparent 50%,
+			rgba(0, 0, 0, 0.03) 50%,
+			rgba(0, 0, 0, 0.03) 60%,
+			transparent 60%,
+			transparent 70%,
+			rgba(0, 0, 0, 0.03) 70%,
+			rgba(0, 0, 0, 0.03) 80%,
+			transparent 80%,
+			transparent 90%,
+			rgba(0, 0, 0, 0.03) 90%,
+			rgba(0, 0, 0, 0.03) 100%
+		);
+	background-size: 20px 20px; /* Adjust the size of the texture */
 }
+
 .tools-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-	border: 2px red solid;
-	flex-grow: 1.3;
+	flex-grow: 3;
+	margin: 0px;
+	padding: 0px;
+}
+#result-container {
+	display: flex;
+	font-style: oblique;
+	color: rgb(119, 40, 7);
+	flex-grow: 1;
+}
+label {
+	font-style: italic;
+	color: rgb(47, 56, 8);
 }
 .drawing-tools {
 	display: flex;
 	width: 100%;
 	padding: 20px;
-	border: 2px green solid;
+	border-bottom: 3px rgba(47, 76, 3, 0.5) double;
 	justify-content: space-evenly;
 	align-items: center;
 }
@@ -65,13 +149,28 @@ body {
 	flex-basis: content;
 }
 
-#result-container {
-	border: 2px red solid;
-	flex-grow: 1;
+#submit-button {
+	background-color: rgba(115, 160, 88, 0.9);
+	width: 40%;
+}
+input {
+	background-color: rgba(211, 222, 204, 0.3);
+	height: fit-content;
+	width: fit-content;
+	font-size: smaller;
+}
+#draw-button {
+	background-color: rgba(14, 104, 101, 0.9);
+	color: white;
+}
+#erase-button {
+	background-color: rgba(127, 36, 36, 0.9);
+	color: white;
 }
 input,
 button {
-	width: 50%;
+	border-radius: 7px;
+	text-align: center;
 }
 
 .box {

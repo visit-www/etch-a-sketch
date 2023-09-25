@@ -4,27 +4,40 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" type="text/css" href="./style.css" />
+		<!-- fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Quantico&display=swap"
+			rel="stylesheet" />
 		<title>Etch a Sketch</title>
 	</head>
 	<body>
-		<div class="info-container">
-			<div class="tools-container">
-				<label for="number-input"
-					>Enter the desired grid size Default is 16 X 16 . You can enter any
-					value between 16 and 100.</label
-				>
-				<input type="number" id="number-input" min="16" />
-				<button type="submit" id="submit-button">Submit</button>
-				<div class="drawing-tools">
-					<button type="button" id="draw-button">Pen</button>
-					<button type="button" id="erase-button">Eraser</button>
+		<div class="title-container">My digital Sketch Pad</div>
+		<div class="sketch-pad-container">
+			<div class="info-container">
+				<div class="tools-container">
+					<label for="number-input"
+						>Enter the desired grid size Default is 16 X 16 . You can enter any
+						value between 16 and 100.</label
+					>
+					<input
+						type="number"
+						id="number-input"
+						min="16"
+						placeholder="Input and Submit" />
+					<button type="submit" id="submit-button">Submit</button>
+					<div class="drawing-tools">
+						<button type="button" id="draw-button">Pen</button>
+						<button type="button" id="erase-button">Eraser</button>
+					</div>
+				</div>
+				<div id="result-container">
+					The default resolution of your sketch board is 16 X 16 (256) pixels.
 				</div>
 			</div>
-			<div id="result-container">
-				The entered gird is 24X24 which will produce a grid 2400 pixels
-			</div>
+			<div class="grid-container"></div>
 		</div>
-		<div class="grid-container"></div>
 
 		<script src="./script.js"></script>
 	</body>
