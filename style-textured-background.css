@@ -1,7 +1,7 @@
-.info-container {
-	background-color: rgb(153, 134, 110); /* A warm, off-white color */
-}
-.info-container {
+/* This file styles the background and sets them as textured paper. The files is
+linked to main CSS file style.css using @import key word*/
+.info-container,
+.grid-container {
 	background-image: linear-gradient(
 			45deg,
 			transparent 10%,
@@ -46,5 +46,14 @@
 			rgba(0, 0, 0, 0.03) 90%,
 			rgba(0, 0, 0, 0.03) 100%
 		);
+}
+
+.grid-container {
+	background-color: rgb(153, 134, 110, 0.3);
+	background-size: 8px 10px;
+}
+
+.info-container {
+	background-color: rgb(153, 134, 110, 0.7);
 	background-size: 40px 40px;
 }
