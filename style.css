@@ -4,10 +4,13 @@ body {
 	max-height: 100vh;
 	max-width: 100vw;
 	/* Add background */
-	background-image: url('./images/old-car-vintage-paper.jpg'); /* Replace with the path to your image */
+	background-image: url('./images/old-car-vintage-paper.jpg');
 	background-size: cover; /* Adjust the size to cover the entire viewport */
 	background-repeat: no-repeat; /* Prevent the image from repeating */
-	background-attachment: inherit; /* Fix the background so it doesn't scroll with the content */
+	background-attachment: inherit; /* inherit so that image scrolls with the contents*/
+}
+* {
+	box-sizing: border-box;
 }
 .title-container {
 	display: flex;
@@ -36,13 +39,8 @@ body {
 	justify-content: space-evenly;
 	align-items: stretch; /* Stretch items to have the same height */
 	box-shadow: inset 40px 5px 260px rgba(0, 0, 0, 0.5);
-
 	/* Add background */
-
 	background-color: #f5e7d1; /* A base color similar to aged paper */
-}
-* {
-	box-sizing: border-box;
 }
 
 .grid-container {
@@ -52,13 +50,11 @@ body {
 	flex-basis: calc (75% - 20px); /*width is hard coded */
 	justify-content: space-evenly;
 	overflow: hidden;
-	/* background-color: rgba(211, 222, 204, 0.6); */
 	/* Add background */
-	background-image: url('./images/sand-coffee-paper.jpg'); /* Replace with the path to your image */
+	background-image: url('./images/sand-coffee-paper.jpg');
 	background-size: cover; /* Adjust the size to cover the entire viewport */
 	background-repeat: no-repeat; /* Prevent the image from repeating */
-	background-attachment: inherit; /* Fix the background so it doesn't scroll with the content */
-
+	background-attachment: inherit; /* inherit so that image scrolls with the contents*/
 	box-shadow: inset 20px 5px 20px rgba(0, 0, 0, 0.5);
 	border-radius: 20px;
 }
@@ -73,10 +69,10 @@ body {
 	background-color: rgba(211, 222, 204, 0.9);
 	box-shadow: inset 0px 2px 5px 0px rgba(47, 76, 3, 0.5);
 	/* Add background */
-	background-image: url('./images/old-car-vintage-paper.jpg'); /* Replace with the path to your image */
+	background-image: url('./images/old-car-vintage-paper.jpg');
 	background-size: cover; /* Adjust the size to cover the entire viewport */
 	background-repeat: no-repeat; /* Prevent the image from repeating */
-	background-attachment: inherit; /* Fix the background so it doesn't scroll with the content */
+	background-attachment: inherit; /* inherit so that image scrolls with the contents*/
 	border-radius: 20px;
 }
 
@@ -115,6 +111,15 @@ label {
 	justify-content: space-evenly;
 	align-items: center;
 }
+input {
+	font-size: smaller;
+	box-shadow: inset 20px 5px 20px rgba(0, 0, 0, 0.5);
+}
+input,
+button {
+	border-radius: 7px;
+	text-align: center;
+}
 #draw-button {
 	margin: 0px 7px 0px 0px;
 	flex-grow: 1;
@@ -130,12 +135,7 @@ label {
 	background-color: rgba(115, 160, 88, 0.9);
 	width: 40%;
 }
-input {
-	height: fit-content;
-	width: fit-content;
-	font-size: smaller;
-	box-shadow: inset 20px 5px 20px rgba(0, 0, 0, 0.5);
-}
+
 #draw-button {
 	background-color: rgba(14, 104, 101, 0.9);
 	color: white;
@@ -144,11 +144,6 @@ input {
 	background-color: rgba(127, 36, 36, 0.9);
 	color: white;
 }
-input,
-button {
-	border-radius: 7px;
-	text-align: center;
-}
 
 .box {
 	margin: 0px;
@@ -156,3 +151,5 @@ button {
 	/* border: 0.001px rgb(255, 255, 255) solid; */
 	/* flex: 1 1 25px; */
 }
+
+/* Styling completed on 26/09/2023. Looks good. Looks like an antique art book */

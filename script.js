@@ -188,7 +188,6 @@ pen.addEventListener('click', (e) => {
 eraser.addEventListener('click', (e) => {
 	if (eraser.textContent === 'Eraser') {
 		removePenEventListeners();
-
 		eraser.textContent = 'Click and drag to erase';
 		pen.textContent = 'Pen';
 		gridContainer.addEventListener('mousedown', eraserDownHandler);
@@ -199,5 +198,5 @@ eraser.addEventListener('click', (e) => {
 	}
 });
 
-// 24/09/2023. The code is working fine. Next is improving the styling and
-// thinking of adding more functions.
+// 24/09/2023. The code is working fine. Good styling already achieved. Will
+// consider adding more functions in version 1.2. (26/09/2023)
