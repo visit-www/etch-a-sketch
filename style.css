@@ -3,6 +3,11 @@ body {
 	padding: 0px;
 	max-height: 100vh;
 	max-width: 100vw;
+	/* Add background */
+	background-image: url('./images/old-car-vintage-paper.jpg'); /* Replace with the path to your image */
+	background-size: cover; /* Adjust the size to cover the entire viewport */
+	background-repeat: no-repeat; /* Prevent the image from repeating */
+	background-attachment: inherit; /* Fix the background so it doesn't scroll with the content */
 }
 .title-container {
 	display: flex;
@@ -11,27 +16,30 @@ body {
 	height: 8vh;
 	/* Style for antique book title */
 	font-family: 'Quantico', sans-serif;
-	font-size: 36px; /* Adjust the font size as needed */
+	font-size: 40px; /* Adjust the font size as needed */
 	font-weight: bold; /* Make it bold for emphasis */
 	text-align: center; /* Center the text horizontally */
 	text-transform: uppercase; /* Uppercase the text */
 	letter-spacing: 2px; /* Add some letter spacing for vintage look */
 	margin: 20px 0; /* Add margin for spacing */
-	color: rgba(98, 89, 39, 1); /* Choose an antique or sepia color */
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+	color: rgb(223, 209, 10); /* Choose an antique or sepia color */
+	text-shadow: 5px 5px 5px rgba(6, 6, 6, 0.9); /* Add a subtle shadow */
 }
 
 .sketch-pad-container {
 	display: flex;
 	margin: 0px;
-	padding: 20px;
 	width: 100vw;
 	height: 90vh;
 	text-align: center;
 	/* center the contents */
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: stretch; /* Stretch items to have the same height */
 	box-shadow: inset 40px 5px 260px rgba(0, 0, 0, 0.5);
+
+	/* Add background */
+
+	background-color: #f5e7d1; /* A base color similar to aged paper */
 }
 * {
 	box-sizing: border-box;
@@ -45,8 +53,14 @@ body {
 	justify-content: space-evenly;
 	overflow: hidden;
 	/* background-color: rgba(211, 222, 204, 0.6); */
+	/* Add background */
+	background-image: url('./images/sand-coffee-paper.jpg'); /* Replace with the path to your image */
+	background-size: cover; /* Adjust the size to cover the entire viewport */
+	background-repeat: no-repeat; /* Prevent the image from repeating */
+	background-attachment: inherit; /* Fix the background so it doesn't scroll with the content */
 
 	box-shadow: inset 20px 5px 20px rgba(0, 0, 0, 0.5);
+	border-radius: 20px;
 }
 
 .info-container {
@@ -58,57 +72,12 @@ body {
 	padding: 10px;
 	background-color: rgba(211, 222, 204, 0.9);
 	box-shadow: inset 0px 2px 5px 0px rgba(47, 76, 3, 0.5);
-	/* We set the background-color to an off-white color (#f4e9d1) to give the base color of the handmade paper.
-
-We create a textured appearance using the background-image property with two linear gradients. These gradients create a diagonal pattern of light lines and subtle imperfections.
-
-The background-size property defines the size of the texture. In this case, it's set to 40px by 40px. You can adjust this value to make the texture larger or smaller. */
-	background-color: #afb1a9; /* A warm, off-white color */
-	background-image: linear-gradient(
-			45deg,
-			transparent 10%,
-			rgba(0, 0, 0, 0.03) 10%,
-			rgba(0, 0, 0, 0.03) 20%,
-			transparent 20%,
-			transparent 30%,
-			rgba(0, 0, 0, 0.03) 30%,
-			rgba(0, 0, 0, 0.03) 40%,
-			transparent 40%,
-			transparent 50%,
-			rgba(0, 0, 0, 0.03) 50%,
-			rgba(0, 0, 0, 0.03) 60%,
-			transparent 60%,
-			transparent 70%,
-			rgba(0, 0, 0, 0.03) 70%,
-			rgba(0, 0, 0, 0.03) 80%,
-			transparent 80%,
-			transparent 90%,
-			rgba(0, 0, 0, 0.03) 90%,
-			rgba(0, 0, 0, 0.03) 100%
-		),
-		linear-gradient(
-			45deg,
-			transparent 10%,
-			rgba(0, 0, 0, 0.03) 10%,
-			rgba(0, 0, 0, 0.03) 20%,
-			transparent 20%,
-			transparent 30%,
-			rgba(0, 0, 0, 0.03) 30%,
-			rgba(0, 0, 0, 0.03) 40%,
-			transparent 40%,
-			transparent 50%,
-			rgba(0, 0, 0, 0.03) 50%,
-			rgba(0, 0, 0, 0.03) 60%,
-			transparent 60%,
-			transparent 70%,
-			rgba(0, 0, 0, 0.03) 70%,
-			rgba(0, 0, 0, 0.03) 80%,
-			transparent 80%,
-			transparent 90%,
-			rgba(0, 0, 0, 0.03) 90%,
-			rgba(0, 0, 0, 0.03) 100%
-		);
-	background-size: 20px 20px; /* Adjust the size of the texture */
+	/* Add background */
+	background-image: url('./images/old-car-vintage-paper.jpg'); /* Replace with the path to your image */
+	background-size: cover; /* Adjust the size to cover the entire viewport */
+	background-repeat: no-repeat; /* Prevent the image from repeating */
+	background-attachment: inherit; /* Fix the background so it doesn't scroll with the content */
+	border-radius: 20px;
 }
 
 .tools-container {
@@ -122,13 +91,21 @@ The background-size property defines the size of the texture. In this case, it's
 }
 #result-container {
 	display: flex;
-	font-style: oblique;
-	color: rgb(119, 40, 7);
-	flex-grow: 1;
+	font-style: italic;
+	font-weight: 700;
+	background-color: rgba(163, 153, 11, 0.5);
+	color: white;
+	height: 10%;
+	justify-content: center;
+	align-items: center;
+	border-radius: 8px;
 }
 label {
 	font-style: italic;
+	font-weight: 700;
 	color: rgb(47, 56, 8);
+	background-color: rgba(163, 153, 11, 0.5);
+	height: 10%;
 }
 .drawing-tools {
 	display: flex;
@@ -154,10 +131,10 @@ label {
 	width: 40%;
 }
 input {
-	background-color: rgba(211, 222, 204, 0.3);
 	height: fit-content;
 	width: fit-content;
 	font-size: smaller;
+	box-shadow: inset 20px 5px 20px rgba(0, 0, 0, 0.5);
 }
 #draw-button {
 	background-color: rgba(14, 104, 101, 0.9);

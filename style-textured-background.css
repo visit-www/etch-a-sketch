@@ -1,0 +1,56 @@
+/* A code to style a textured background */
+/* We set the background-color to an off-white color (#f4e9d1) to give the
+base color of the handmade paper. We create a textured appearance using the
+background-image property with two linear gradients. These gradients create a
+diagonal pattern of light lines and subtle imperfections.
+The background-size property defines the size of the texture. In this case, it's set to 40px by 40px. You can adjust this value to make the texture larger or smaller. */
+
+
+body{
+    background-color: rgb(153, 134, 110); /* A warm, off-white color */
+	background-image: linear-gradient(
+			45deg,
+			transparent 10%,
+			rgba(0, 0, 0, 0.03) 10%,
+			rgba(0, 0, 0, 0.03) 20%,
+			transparent 20%,
+			transparent 30%,
+			rgba(0, 0, 0, 0.03) 30%,
+			rgba(0, 0, 0, 0.03) 40%,
+			transparent 40%,
+			transparent 50%,
+			rgba(0, 0, 0, 0.03) 50%,
+			rgba(0, 0, 0, 0.03) 60%,
+			transparent 60%,
+			transparent 70%,
+			rgba(0, 0, 0, 0.03) 70%,
+			rgba(0, 0, 0, 0.03) 80%,
+			transparent 80%,
+			transparent 90%,
+			rgba(0, 0, 0, 0.03) 90%,
+			rgba(0, 0, 0, 0.03) 100%
+		),
+		linear-gradient(
+			45deg,
+			transparent 10%,
+			rgba(0, 0, 0, 0.03) 10%,
+			rgba(0, 0, 0, 0.03) 20%,
+			transparent 20%,
+			transparent 30%,
+			rgba(0, 0, 0, 0.03) 30%,
+			rgba(0, 0, 0, 0.03) 40%,
+			transparent 40%,
+			transparent 50%,
+			rgba(0, 0, 0, 0.03) 50%,
+			rgba(0, 0, 0, 0.03) 60%,
+			transparent 60%,
+			transparent 70%,
+			rgba(0, 0, 0, 0.03) 70%,
+			rgba(0, 0, 0, 0.03) 80%,
+			transparent 80%,
+			transparent 90%,
+			rgba(0, 0, 0, 0.03) 90%,
+			rgba(0, 0, 0, 0.03) 100%
+		);
+	background-size: 40px 40px; */Adjust the size of the texture*/
+}
